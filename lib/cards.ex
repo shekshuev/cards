@@ -9,15 +9,15 @@ defmodule Cards do
   end
 
   def shuffle(deck) do
-    Enum.shuffle(deck)
+    deck |> Enum.shuffle()
   end
 
   def containd?(deck, hand) do
-    Enum.member?(deck, hand)
+    deck |> Enum.member?(hand)
   end
 
   def deal(deck, hand_size) do
-    Enum.split(deck, hand_size)
+    deck |> Enum.split(hand_size)
   end
 
   def save(dec, filename) do
@@ -30,5 +30,11 @@ defmodule Cards do
       {:ok, binary} -> :erlang.binary_to_term(binary)
       {:error, _} -> "File does not exists"
     end
+  end
+
+  def create_hand(hand_size) do
+    create_deck()
+    |> shuffle()
+    |> deal(hand_size)
   end
 end
